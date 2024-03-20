@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -89,34 +90,38 @@ class MainActivity : ComponentActivity() {
                         },
                     )
                 }) { innerPadding ->
-                    Column(
-                        modifier = Modifier.padding(innerPadding).fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    Box(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
                         if (bitmap == null)
                             Text("Use a camera button at the top to add your image", fontFamily = FontFamily.Monospace, modifier = Modifier.padding(64.dp), textAlign = TextAlign.Center)
                         bitmap?.let {
-                            Image(bitmap = bitmap!!.asImageBitmap(), contentDescription = "Chosen image", modifier = Modifier
-                                .height(164.dp)
-                                .width(164.dp).clip(MaterialTheme.shapes.extraLarge))
+                            Column(verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.CenterHorizontally) {
+                                Image(bitmap = bitmap!!.asImageBitmap(), contentDescription = "Chosen image", modifier = Modifier
+                                    .height(164.dp)
+                                    .width(164.dp)
+                                    .clip(MaterialTheme.shapes.extraLarge))
 
+                                Column(horizontalAlignment = Alignment.Start) {
+                                    if (result.isNotEmpty()) {
+                                        result.reversed().take(10).forEach {
+                                            Text(
+                                                stringResource(R.string.result_entry, it.label, it.score),
+                                                fontFamily = FontFamily.Monospace
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                             ExtendedFloatingActionButton(
+                                modifier = Modifier.align(Alignment.BottomCenter).padding(24.dp),
                                 onClick = { result = classifier.calcProbabilityForBitmap(bitmap!!) },
                                 icon = { Icon(painterResource(R.drawable.ic_auto_awesome_24), "Detect letter") },
                                 text = { Text("Detect letter") }
                             )
-
-                            Column(horizontalAlignment = Alignment.Start) {
-                                if (result.isNotEmpty()) {
-                                    result.reversed().take(10).forEach {
-                                        Text(
-                                            stringResource(R.string.result_entry, it.label, it.score),
-                                            fontFamily = FontFamily.Monospace
-                                        )
-                                    }
-                                }
-                            }
                         }
                     }
                 }
