@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TFLRussianCursiveRecognizer</string>
+    <string name="detect_letter_button">Определить букву</string>
+    <string name="result_entry">%1$s : %2$s</string>
+</resources>
