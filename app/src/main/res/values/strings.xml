@@ -2,4 +2,7 @@
     <string name="app_name">TFLRussianCursiveRecognizer</string>
     <string name="detect_letter_button">Определить букву</string>
     <string name="result_entry">%1$s : %2$s</string>
+    <string name="app_title">Russian Cursive Recognition</string>
+    <string name="usage_hint">Use a camera button at the top to add your image</string>
+    <string name="detect_letter">Detect letter</string>
 </resources>

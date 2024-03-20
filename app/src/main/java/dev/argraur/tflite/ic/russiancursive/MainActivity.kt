@@ -25,7 +25,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,7 +37,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
@@ -77,7 +75,7 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
                     CenterAlignedTopAppBar(
-                        title = { Text("Russian Cursive Recognition", style = MaterialTheme.typography.titleLarge) },
+                        title = { Text(stringResource(R.string.app_title), style = MaterialTheme.typography.titleLarge) },
                         actions = {
                             IconButton(onClick = { bitmap = null }) { Icon(Icons.Filled.Refresh, "Reset") }
                             IconButton(
@@ -97,7 +95,7 @@ class MainActivity : ComponentActivity() {
                         contentAlignment = Alignment.Center
                     ) {
                         if (bitmap == null)
-                            Text("Use a camera button at the top to add your image", fontFamily = FontFamily.Monospace, modifier = Modifier.padding(64.dp), textAlign = TextAlign.Center)
+                            Text(stringResource(R.string.usage_hint), fontFamily = FontFamily.Monospace, modifier = Modifier.padding(64.dp), textAlign = TextAlign.Center)
                         bitmap?.let {
                             Column(verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.CenterHorizontally) {
                                 Image(bitmap = bitmap!!.asImageBitmap(), contentDescription = "Chosen image", modifier = Modifier
@@ -117,31 +115,17 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             ExtendedFloatingActionButton(
-                                modifier = Modifier.align(Alignment.BottomCenter).padding(24.dp),
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .padding(24.dp),
                                 onClick = { result = classifier.calcProbabilityForBitmap(bitmap!!) },
                                 icon = { Icon(painterResource(R.drawable.ic_auto_awesome_24), "Detect letter") },
-                                text = { Text("Detect letter") }
+                                text = { Text(stringResource(R.string.detect_letter)) }
                             )
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TFLRussianCursiveRecognizerTheme {
-        Greeting("Android")
     }
 }
