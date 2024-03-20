@@ -6,11 +6,11 @@ import android.util.Log
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.label.Category
 
-class RussianCursiveML(context: Context) {
+class RussianCursiveClassifier(context: Context) {
     private val model = RussianCursive.newInstance(context)
 
     fun calcProbabilityForBitmap(bitmap: Bitmap): List<Category> {
-        val tensorImage = TensorImage.fromBitmap(bitmap)
+        val tensorImage = TensorImage.fromBitmap(bitmap.copy(Bitmap.Config.ARGB_8888,true))
 
         val outputs = model.process(tensorImage)
 
