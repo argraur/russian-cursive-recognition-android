@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
                     CenterAlignedTopAppBar(
-                        title = { Text(stringResource(R.string.app_title), style = MaterialTheme.typography.titleLarge) },
+                        title = { Text(stringResource(R.string.app_name), style = MaterialTheme.typography.titleLarge) },
                         actions = {
                             IconButton(onClick = { bitmap = null }) { Icon(Icons.Filled.Refresh, "Reset") }
                             IconButton(
